@@ -11,3 +11,7 @@ Dự án kiểm thử giao diện tự động sử dụng **Java + Selenium + T
 - **IDE:** Intellij
 - **Framework:** Selenium, TestNG
 - **Tiện ích:** Tạo report (html) cùng với Screenshot khi test failed
+  
+## 📦 Cài đặt & Chạy thử
+- Nhấn Run 'testng.xml' để chạy toàn bộ test suite.
+
