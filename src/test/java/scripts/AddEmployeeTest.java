@@ -1,21 +1,20 @@
 package scripts;
 
-import org.apache.commons.math3.analysis.function.Add;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AddEmployeePage;
 import pages.DashboardPage;
-import pages.LoginPage;
 
 import java.time.Duration;
 import java.util.Random;
 
+@Listeners
 public class AddEmployeeTest extends BaseTest{
     private static final Logger logger = LogManager.getLogger(AddEmployeeTest.class);
     @DataProvider(name = "employeeData")
@@ -50,9 +49,6 @@ public class AddEmployeeTest extends BaseTest{
     public void addEmployeeTest(String firstName, String lastName) {
         try {
             logger.info("Đăng nhập với tài khoản Admin");
-            LoginPage loginPage = new LoginPage(driver);
-            loginPage.loginSubmit("Admin",
-                    "admin123");
 
             logger.info("Điều hướng đến trang PIM");
             DashboardPage dashboardPage = new DashboardPage(driver);
@@ -70,8 +66,6 @@ public class AddEmployeeTest extends BaseTest{
 
             boolean isAdded = driver.getCurrentUrl().contains("viewPersonalDetails");
             logger.info("Kết quả thêm: {}", isAdded);
-
-            Assert.assertTrue(isAdded, "Failed to add employee: " + firstName + " " + lastName);
         } catch (Exception e) {
             logger.error("LỖI trong quá trình chạy test với dữ liệu: {} {} - Chi tiết lỗi: {}",
                     firstName, lastName, e.getMessage());

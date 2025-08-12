@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="OrangeHRM Test Suite">
+    <listeners>
+        <listener class-name="listerners.ExtentReportListerner"/>
+    </listeners>
+    <test name="AddEmployeeTest">
+        <classes>
+            <class name="scripts.AddEmployeeTest"/>
+        </classes>
+    </test>
+</suite>
