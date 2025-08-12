@@ -367,3 +367,87 @@ Session ID: 8b23210e10c83ad2aeb5c1a8615e5f9f
 [2025-08-12 15:51:08] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
 [2025-08-12 15:51:09] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Ava Smith
 [2025-08-12 15:51:15] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:19:46] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:19:55] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:20:04] [main] INFO  scripts.LoginTest - đang test với username: 
+[2025-08-12 16:20:12] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:21:51] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:21:53] [main] INFO  scripts.LoginTest - Kết quả thực tế: true
+[2025-08-12 16:21:53] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:22:00] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:22:21] [main] INFO  scripts.LoginTest - đang test với username: 
+[2025-08-12 16:22:40] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:24:41] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:24:43] [main] INFO  scripts.LoginTest - Kết quả thực tế: true
+[2025-08-12 16:24:43] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:24:50] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:24:52] [main] INFO  scripts.LoginTest - Kết quả thực tế: false
+[2025-08-12 16:24:52] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:24:59] [main] INFO  scripts.LoginTest - đang test với username: 
+[2025-08-12 16:24:59] [main] INFO  scripts.LoginTest - Kết quả thực tế: false
+[2025-08-12 16:24:59] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:25:06] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:25:06] [main] INFO  scripts.LoginTest - Kết quả thực tế: false
+[2025-08-12 16:25:06] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:28:08] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:28:11] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:28:13] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:28:14] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Alexander Jones
+[2025-08-12 16:28:21] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:28:27] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:28:29] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:28:32] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:28:34] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Amelia Martinez
+[2025-08-12 16:28:43] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:28:51] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:28:51] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:28:59] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:29:02] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Benjamin Garcia
+[2025-08-12 16:29:09] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:29:16] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:29:17] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:29:20] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:29:22] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Olivia Moore
+[2025-08-12 16:29:28] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:29:35] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:29:37] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:29:39] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:29:41] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: James Martinez
+[2025-08-12 16:29:47] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:29:55] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:29:57] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:29:59] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:30:00] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Harper Brown
+[2025-08-12 16:30:06] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:30:14] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:30:15] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:30:18] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:30:19] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: William Moore
+[2025-08-12 16:30:25] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:30:33] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:30:33] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:30:37] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:30:38] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Lucas Gonzalez
+[2025-08-12 16:30:44] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:30:51] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:30:53] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:30:55] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:30:57] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Ava Wilson
+[2025-08-12 16:31:03] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:31:14] [main] INFO  scripts.AddEmployeeTest - Đăng nhập với tài khoản Admin
+[2025-08-12 16:31:15] [main] INFO  scripts.AddEmployeeTest - Điều hướng đến trang PIM
+[2025-08-12 16:31:20] [main] INFO  scripts.AddEmployeeTest - Mở trang Add Employee
+[2025-08-12 16:31:22] [main] INFO  scripts.AddEmployeeTest - Đang nhập thông tin: Benjamin Davis
+[2025-08-12 16:31:28] [main] INFO  scripts.AddEmployeeTest - Kết quả thêm: true
+[2025-08-12 16:31:38] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:31:40] [main] INFO  scripts.LoginTest - Kết quả thực tế: true
+[2025-08-12 16:31:40] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:31:46] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:31:48] [main] INFO  scripts.LoginTest - Kết quả thực tế: false
+[2025-08-12 16:31:48] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:31:54] [main] INFO  scripts.LoginTest - đang test với username: 
+[2025-08-12 16:31:55] [main] INFO  scripts.LoginTest - Kết quả thực tế: false
+[2025-08-12 16:31:55] [main] INFO  scripts.LoginTest - Test pass
+[2025-08-12 16:32:01] [main] INFO  scripts.LoginTest - đang test với username: Admin
+[2025-08-12 16:32:01] [main] INFO  scripts.LoginTest - Kết quả thực tế: false
+[2025-08-12 16:32:01] [main] INFO  scripts.LoginTest - Test pass

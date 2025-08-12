@@ -8,4 +8,9 @@
             <class name="scripts.AddEmployeeTest"/>
         </classes>
     </test>
+    <test name="LoginTest">
+        <classes>
+            <class name="scripts.LoginTest"/>
+        </classes>
+    </test>
 </suite>

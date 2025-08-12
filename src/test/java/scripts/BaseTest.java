@@ -20,8 +20,6 @@ public class BaseTest {
         driver.get("https://opensource-demo.orangehrmlive.com/web/index.php");
         new WebDriverWait(driver, Duration.ofSeconds(10))
                 .until(ExpectedConditions.visibilityOfElementLocated(By.name("username")));
-
-        new LoginPage(driver).loginSubmit("Admin", "admin123");
     }
 
     @AfterMethod

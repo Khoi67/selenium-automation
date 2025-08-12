@@ -10,6 +10,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AddEmployeePage;
 import pages.DashboardPage;
+import pages.LoginPage;
 
 import java.time.Duration;
 import java.util.Random;
@@ -49,6 +50,8 @@ public class AddEmployeeTest extends BaseTest{
     public void addEmployeeTest(String firstName, String lastName) {
         try {
             logger.info("Đăng nhập với tài khoản Admin");
+            LoginPage loginPage = new LoginPage(driver);
+            loginPage.loginSubmit("Admin", "admin123");
 
             logger.info("Điều hướng đến trang PIM");
             DashboardPage dashboardPage = new DashboardPage(driver);
