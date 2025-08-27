@@ -1,7 +1,7 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import listerners.ExtentReportListerner;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -24,6 +24,33 @@ public class AddEmployeePage {
                 .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()=\"Add Employee\"]")));
         driver.findElement(By.name("firstName")).sendKeys(firstName);
         driver.findElement(By.name("lastName")).sendKeys(lastName);
+
+        WebElement empId = driver.findElement(By.xpath("//label[text()='Employee Id']/../following-sibling::div/input"));
+        empId.sendKeys(Keys.CONTROL + "a"); // chọn hết
+        empId.sendKeys(Keys.DELETE);
+        empId.sendKeys(firstName);
+
         driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
     }
+    public String getEmployeeIdError() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+            WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                    By.xpath("//label[text()='Employee Id']/../following-sibling::span")
+            ));
+            return errorMsg.getText();
+        } catch (TimeoutException e) {
+            return ""; // không có lỗi
+        }
+    }
+    public boolean checkingAdd() {
+        try {
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Personal Details']")));
+            return true;
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
+
 }

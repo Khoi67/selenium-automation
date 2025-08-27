@@ -1,10 +1,12 @@
 package scripts;
 
+import listerners.ExtentReportListerner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -64,14 +66,19 @@ public class AddEmployeeTest extends BaseTest{
             logger.info("Đang nhập thông tin: {} {}", firstName, lastName);
             addEmployeePage.addEmployee(firstName, lastName);
 
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Personal Details']")));
+            // Kiểm tra lỗi Employee Id
+            String error = addEmployeePage.getEmployeeIdError();
+            Assert.assertTrue(error.isEmpty(), error);
 
-            boolean isAdded = driver.getCurrentUrl().contains("viewPersonalDetails");
-            logger.info("Kết quả thêm: {}", isAdded);
+            // Kiểm tra đã add thành công
+            boolean isAdded = addEmployeePage.checkingAdd();
+            Assert.assertTrue(isAdded, "Thêm thất bại!!!");
+
+            logger.info("Thêm thành công!!!");
+            ExtentReportListerner.getTest().pass("✅ Thêm thành công: " + firstName + " " + lastName);
+
         } catch (Exception e) {
-            logger.error("LỖI trong quá trình chạy test với dữ liệu: {} {} - Chi tiết lỗi: {}",
-                    firstName, lastName, e.getMessage());
+            logger.error("Lỗi {}", e.getMessage());
             throw e; // Vẫn ném lỗi để TestNG fail
         }
     }

@@ -26,6 +26,8 @@ public class ExtentManager {
         // Chọn theme cho báo cáo: STANDARD (trắng) hoặc DARK (đen)
         reporter.config().setTheme(Theme.STANDARD);
 
+        reporter.config().setEncoding("UTF-8"); // Fix lỗi tiếng Việt
+
         // Khởi tạo đối tượng ExtentReports chính
         extent = new ExtentReports();
 
@@ -35,6 +37,7 @@ public class ExtentManager {
         // Gắn thông tin phụ thêm vào report (hiển thị ở phần trên cùng)
         extent.setSystemInfo("Tester", "Khoi Do");
         extent.setSystemInfo("Environment", "Production");
+        extent.setSystemInfo("Build Number", "v1.0.2");
 
         // Trả về đối tượng ExtentReports
         return extent;
