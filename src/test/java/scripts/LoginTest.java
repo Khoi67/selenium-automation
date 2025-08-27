@@ -40,7 +40,7 @@ public class LoginTest extends BaseTest{
     @Test(dataProvider = "loginData")
     public void loginTest(String username, String password, String expectedResult) {
         try {
-            logger.info("đang test với username: {}", username);
+            logger.info("Test login với {}/{}", username, password);
             LoginPage loginPage = new LoginPage(driver);
             loginPage.loginSubmit(username, password);
 

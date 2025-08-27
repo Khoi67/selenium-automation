@@ -13,4 +13,9 @@
             <class name="scripts.LoginTest"/>
         </classes>
     </test>
+    <test name="VerifyEmployeeTest">
+        <classes>
+            <class name="scripts.VerifyEmployeeTest"/>
+        </classes>
+    </test>
 </suite>
