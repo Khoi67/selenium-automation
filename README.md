@@ -13,8 +13,8 @@ Dự án kiểm thử tự động sử dụng **Java + Selenium + TestNG** trê
 
 ### 2. **Thêm nhân viên**
 - Sử dụng **Java Faker** để sinh ngẫu nhiên thông tin nhân viên.
-- Lưu thông tin nhân viên vào file .txt.
-- Xác minh nhân viên được tạo thành công bằng thông báo hệ thống.
+- Lưu thông tin nhân viên vào file .txt khi thêm thành công.
+- Xác minh nhân viên được tạo thành công.
 
 ### 3. **Tìm kiếm nhân viên**
 - Truy xuất dữ liệu từ trong file .txt.
@@ -25,7 +25,7 @@ Dự án kiểm thử tự động sử dụng **Java + Selenium + TestNG** trê
 - Sinh **ExtentReport** sau khi chạy test để hiển thị kết quả **Pass/Fail**.
 - Tự động chụp **screenshot khi test thất bại** và gắn vào báo cáo.
 
----
+--
 
 ## 🛠 Công nghệ sử dụng
 - **JDK:** 21
@@ -36,3 +36,5 @@ Dự án kiểm thử tự động sử dụng **Java + Selenium + TestNG** trê
 - Clone project:
   ```bash
   git clone https://github.com/Khoi67/selenium-automation.git
+  
+- Chạy testNG.xml
