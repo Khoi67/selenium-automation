@@ -17,10 +17,10 @@ public class BaseTest {
     public WebDriver driver;
 
     //Reset file employees.txt trước khi chạy suite
-//    @BeforeSuite
-//    public void clearDataFile() {
-//        TestData.clearEmployeesFile();
-//    }
+    @BeforeSuite
+    public void clearDataFile() {
+        TestData.clearEmployeesFile();
+    }
 
     @BeforeMethod
     public void setUp(){
