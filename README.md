@@ -25,8 +25,6 @@ Dự án kiểm thử tự động sử dụng **Java + Selenium + TestNG** trê
 - Sinh **ExtentReport** sau khi chạy test để hiển thị kết quả **Pass/Fail**.
 - Tự động chụp **screenshot khi test thất bại** và gắn vào báo cáo.
 
---
-
 ## 🛠 Công nghệ sử dụng
 - **JDK:** 21
 - **IDE:** IntelliJ IDEA
