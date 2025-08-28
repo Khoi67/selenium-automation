@@ -4,9 +4,6 @@
     <listeners>
         <listener class-name="listerners.ExtentReportListerner"/>
     </listeners>
-    <listeners>
-        <listener class-name="listerners.TestListerner"/>
-    </listeners>
     <!-- 1. Seed data -->
     <test name="AddEmployeeTest">
         <classes>

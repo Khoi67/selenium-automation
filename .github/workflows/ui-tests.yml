@@ -14,16 +14,22 @@ jobs:
 
       - run: mvn -B clean test -Dheadless=true
 
-      - name: Locate report
-        run: find target -type f -iname "*Extent*.html"
-
-      - name: Prepare publish dir
+      - name: Generate index.html
         run: |
-          mkdir -p publish
-          cp target/extent-reports/ExtentReport.html publish/index.html
+          cat <<'EOF' > reports/index.html
+          <html><head><title>Test Reports</title></head><body>
+          <h2>Automation Test Reports</h2>
+          <ul>
+            <li><a href="AddEmployeeTest_Report.html">AddEmployeeTest</a></li>
+            <li><a href="LoginTest_Report.html">LoginTest</a></li>
+            <li><a href="VerifyEmployeeTest_Report.html">VerifyEmployeeTest</a></li>
+          </ul>
+          </body></html>
+          EOF
 
       - uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./publish
+          publish_dir: ./reports          # thư mục đã có index.html
           publish_branch: gh-pages
