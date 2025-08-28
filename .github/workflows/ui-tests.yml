@@ -1,55 +1,24 @@
 name: UI Tests
+on: [push, pull_request]
 
-# ─────────────────────── TRIGGER ───────────────────────
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+permissions: { contents: write }
 
-# Cho phép GITHUB_TOKEN có quyền ghi (để đẩy lên gh-pages)
-permissions:
-  contents: write
-
-# ─────────────────────── JOBS ──────────────────────────
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-      # 1) Lấy mã nguồn
       - uses: actions/checkout@v3
-
-      # 2) Cài JDK Temurin 21
       - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 21
+        with: {distribution: temurin, java-version: 21}
 
-      # 3) Cache Maven repository (~/.m2)
-      - name: Cache Maven
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+      - run: mvn -B clean test -Dheadless=true
 
-      # 4) Chạy toàn bộ TestNG (headless để CI ổn định)
-      - name: Run UI tests
-        run: mvn -B clean test -Dheadless=true
+      - name: List reports dir
+        run: find reports -maxdepth 2 -type f || echo "No reports"
 
-      # 5) Kiểm tra thư mục báo cáo (debug khi cần)
-      - name: List reports folder
-        run: |
-          echo "🔍 Content of reports/"
-          ls -R reports || echo "⚠️ reports/ not found!"
-
-      # 6) Deploy thư mục reports/ (đã có index.html) lên nhánh gh-pages
-      - name: Publish report to GitHub Pages
-        if: github.ref == 'refs/heads/main'        # chỉ thực hiện trên main
-        uses: peaceiris/actions-gh-pages@v3
+      - uses: peaceiris/actions-gh-pages@v3
+        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports                   # phải chứa index.html
+          publish_dir: ./reports
           publish_branch: gh-pages
-          user_name: github-actions
-          user_email: github-actions@github.com

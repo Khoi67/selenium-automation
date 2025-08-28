@@ -4,17 +4,21 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.aventstack.extentreports.reporter.configuration.Theme;
 
+import java.io.File;
+
 public class ExtentManager {
     // Tạo biến static ExtentReports để dùng toàn cục
     private static ExtentReports extent;
-
+    static {
+        File reportsDir = new File("reports");
+        if (!reportsDir.exists()) {
+            reportsDir.mkdirs();
+            System.out.println("✅ [ExtentManager] created /reports directory");
+        }
+    }
     // Hàm khởi tạo ExtentReports instance
     public static ExtentReports createInstance(String reportFileName) {
-        // 1) Bảo đảm thư mục reports tồn tại
-        java.io.File reportsDir = new java.io.File("reports");
-        if (!reportsDir.exists()) reportsDir.mkdirs();   // <-- thêm dòng này
 
-        // 2) Đường dẫn file report
         String reportPath = "./reports/" + reportFileName;
 
         // Tạo đối tượng ExtentSparkReporter, dùng để xuất ra file HTML
