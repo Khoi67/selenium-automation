@@ -1,6 +1,3 @@
-name: UI Tests
-on: [push, pull_request]
-
 permissions:
   contents: write
 
@@ -10,26 +7,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: 21
+        with: {distribution: temurin, java-version: 21}
 
       - run: mvn -B clean test -Dheadless=true
 
-      - name: List report
-        run: ls -R reports || true
+      - name: Locate report
+        run: find target -type f -iname "*Extent*.html"
 
-      - name: Prepare report for Pages
+      - name: Prepare publish dir
         run: |
-          if [ -f reports/ExtentReport.html ]; then
-            cp reports/ExtentReport.html reports/index.html
-          fi
+          mkdir -p publish
+          cp target/extent-reports/ExtentReport.html publish/index.html
 
       - uses: peaceiris/actions-gh-pages@v3
-        if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports
+          publish_dir: ./publish
           publish_branch: gh-pages
-          user_name: github-actions
-          user_email: github-actions@github.com
