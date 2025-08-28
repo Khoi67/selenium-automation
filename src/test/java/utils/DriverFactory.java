@@ -1,5 +1,6 @@
 package utils;
 
+import config.ConfigReader;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,12 +8,13 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class DriverFactory {
+    private static WebDriver driver;
+
     public static WebDriver getDriver (){
         //mặc định tạo chromedriver
-        String browserName = System.getProperty("browser", "chrome");
-        WebDriver driver;
+        String browserName = ConfigReader.get("browser").toLowerCase();
 
-        switch (browserName.toLowerCase()){
+        switch (browserName){
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 driver = new ChromeDriver();
@@ -34,5 +36,10 @@ public class DriverFactory {
         driver.manage().window().maximize();
         return driver;
     }
-
+    public static void quitDriver() {
+        if (driver != null) {
+            driver.quit();
+            driver = null;
+        }
+    }
 }

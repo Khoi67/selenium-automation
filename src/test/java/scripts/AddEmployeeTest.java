@@ -1,6 +1,7 @@
 package scripts;
 
 import com.github.javafaker.Faker;
+import config.ConfigReader;
 import listerners.ExtentReportListerner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +35,7 @@ public class AddEmployeeTest extends BaseTest{
         try {
             logger.info("Đăng nhập với tài khoản Admin");
             LoginPage loginPage = new LoginPage(driver);
-            loginPage.loginSubmit("Admin", "admin123");
+            loginPage.loginSubmit(ConfigReader.get("username"), ConfigReader.get("password"));
 
             logger.info("Điều hướng đến trang PIM");
             DashboardPage dashboardPage = new DashboardPage(driver);

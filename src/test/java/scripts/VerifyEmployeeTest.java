@@ -1,5 +1,6 @@
 package scripts;
 
+import config.ConfigReader;
 import listerners.ExtentReportListerner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +35,7 @@ public class VerifyEmployeeTest extends BaseTest{
     public void verifyEmployeesInList(String firstName, String lastName) {
         try {
             LoginPage loginPage = new LoginPage(driver);
-            loginPage.loginSubmit("Admin", "admin123");
+            loginPage.loginSubmit(ConfigReader.get("username"), ConfigReader.get("password"));
 
             DashboardPage dashboardPage = new DashboardPage(driver);
             dashboardPage.goToPimPage();
