@@ -2,7 +2,6 @@
 ![CI](https://github.com/Khoi67/selenium-automation/actions/workflows/ui-tests.yml/badge.svg)
 
 Framework tự động hoá giao diện viết bằng **Java 21 + Selenium 4 + TestNG**.  
-Áp dụng Page Object Model, Data-Driven (Excel + Faker), báo cáo **ExtentReport**, log Log4j2 và CI bằng GitHub Actions.
 
 ---
 
@@ -34,12 +33,12 @@ Framework tự động hoá giao diện viết bằng **Java 21 + Selenium 4 + T
 2. IntelliJ tự tải Maven dependencies.
 3. Mở file `testng.xml`, bấm **Run** (biểu tượng ▶) ‑ hoặc:  
    • Mở class test (ví dụ `AddEmployeeTest`) → **Run …**.
-4. Xem báo cáo: `reports/ExtentReport.html`.
+4. Xem báo cáo: `reports/<Name>_Report.html`.
 
 ### 2. Từ command line
 
 ```bash
-git clone https://github.com/<USER>/<REPO>.git
+git clone https://github.com/Khoi67/selenium-automation.git
 cd selenium-automation
 mvn clean test              # chạy tất cả suite
 mvn test -Dbrowser=firefox  # đổi trình duyệt
