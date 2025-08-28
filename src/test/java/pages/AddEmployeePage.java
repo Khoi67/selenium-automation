@@ -1,5 +1,6 @@
 package pages;
 
+import com.google.common.io.BaseEncoding;
 import listerners.ExtentReportListerner;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -7,50 +8,45 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class AddEmployeePage {
-    private WebDriver driver;
+public class AddEmployeePage extends BasePage {
 
-    public AddEmployeePage(WebDriver driver){
-        this.driver = driver;
+    private By addEmployeeMenu = By.xpath("//a[text()='Add Employee']");
+    private By addEmployeeHeader = By.xpath("//h6[text()='Add Employee']");
+    private By firstNameField = By.name("firstName");
+    private By lastNameField = By.name("lastName");
+    private By employeeIdField = By.xpath("//label[text()='Employee Id']/../following-sibling::div/input");
+    private By employeeIdError = By.xpath("//label[text()='Employee Id']/../following-sibling::span");
+    private By submitBtn = By.xpath("//button[@type='submit']");
+    private By personalDetailsHeader = By.xpath("//h6[text()='Personal Details']");
+
+    public AddEmployeePage(WebDriver driver) {
+        super(driver);
     }
     public void goToAddEmployeePage() {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[text()=\"Add Employee\"]")));
-        driver.findElement(By.xpath("//a[text()=\"Add Employee\"]")).click();
-
+        click(addEmployeeMenu);
     }
     public void addEmployee(String firstName, String lastName) {
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()=\"Add Employee\"]")));
-        driver.findElement(By.name("firstName")).sendKeys(firstName);
-        driver.findElement(By.name("lastName")).sendKeys(lastName);
+        waitForVisibility(addEmployeeHeader); // đảm bảo trang đã load
 
-        WebElement empId = driver.findElement(By.xpath("//label[text()='Employee Id']/../following-sibling::div/input"));
-        empId.sendKeys(Keys.CONTROL + "a"); // chọn hết
-        empId.sendKeys(Keys.DELETE);
-        empId.sendKeys(firstName);
+        type(firstNameField, firstName);
+        type(lastNameField, lastName);
 
-        driver.findElement(By.xpath("//button[@type=\"submit\"]")).click();
+        // Đặt lại Employee ID
+        WebElement empIdInput = find(employeeIdField);
+        empIdInput.sendKeys(Keys.CONTROL + "a");
+        empIdInput.sendKeys(Keys.DELETE);
+        empIdInput.sendKeys(firstName);
+
+        click(submitBtn);
     }
     public String getEmployeeIdError() {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-            WebElement errorMsg = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                    By.xpath("//label[text()='Employee Id']/../following-sibling::span")
-            ));
-            return errorMsg.getText();
+            return getText(employeeIdError);
         } catch (TimeoutException e) {
-            return ""; // không có lỗi
+            return "";
         }
     }
     public boolean checkingAdd() {
-        try {
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[text()='Personal Details']")));
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
+        return isDisplayed(personalDetailsHeader);
     }
-
 }

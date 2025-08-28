@@ -6,17 +6,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Objects;
 
-public class DashboardPage {
-    private WebDriver driver;
-    //constructor nhận webdriver
-    public DashboardPage(WebDriver driver){
-        this.driver = driver;
+public class DashboardPage extends BasePage {
+    private By pimMenu = By.xpath("//span[text()='PIM']");
+
+    public DashboardPage(WebDriver driver) {
+        super(driver);
     }
 
-    public void goToPimPage(){
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='PIM']")));
-        driver.findElement(By.xpath("//span[text()='PIM']")).click();
+    public void goToPimPage() {
+        click(pimMenu); // sử dụng method từ BasePage: có sẵn wait bên trong
     }
 }

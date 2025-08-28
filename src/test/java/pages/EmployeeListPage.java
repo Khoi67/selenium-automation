@@ -7,49 +7,43 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-public class EmployeeListPage {
-    private WebDriver driver;
+public class EmployeeListPage extends BasePage{
 
-    // Locator cho search
-    private By firstNameInput = By.xpath("//label[text()='Employee Name']/../following-sibling::div//input");
+    private By employeeNameInput = By.xpath("//label[text()='Employee Name']/../following-sibling::div//input");
     private By searchButton = By.xpath("//button[@type='submit']");
-    private By resultRows = By.xpath("//div[@class='oxd-table-body']/div"); // hàng trong table
+    private By resultRows = By.xpath("//div[@class='oxd-table-body']/div"); // từng dòng nhân viên
 
     public EmployeeListPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
     public boolean isEmployeeInList(String firstName, String lastName) {
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            // Xóa sạch tên cũ trước khi search tên mới
+            WebElement nameField = find(employeeNameInput);
+            nameField.sendKeys(Keys.CONTROL + "a"); // Select all
+            nameField.sendKeys(Keys.DELETE);        // Delete
+            nameField.sendKeys(firstName + " " + lastName); // Nhập tên
 
-            // Nhập tên nhân viên vào ô search
-            WebElement nameField = wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameInput));
-            nameField.sendKeys(Keys.CONTROL + "a");
-            nameField.sendKeys(Keys.DELETE);
-            nameField.sendKeys(firstName + " " + lastName);
+            click(searchButton);
 
-            // Bấm Search
-            driver.findElement(searchButton).click();
+            // ⏱️ Đợi danh sách xuất hiện thay vì sleep
+            wait.until(ExpectedConditions.visibilityOfElementLocated(resultRows));
 
-            Thread.sleep(3000);
-            List<WebElement> rows = wait.until(
-                    ExpectedConditions.visibilityOfAllElementsLocatedBy(resultRows)
-            );
+            List<WebElement> rows = driver.findElements(resultRows);
 
             for (WebElement row : rows) {
                 String firstnameFound = row.findElement(By.xpath(".//div[@role='cell'][3]")).getText().trim();
                 String lastnameFound  = row.findElement(By.xpath(".//div[@role='cell'][4]")).getText().trim();
 
-                if (firstnameFound.equalsIgnoreCase(firstName) && lastnameFound.equalsIgnoreCase(lastName)) {
+                if (firstnameFound.equalsIgnoreCase(firstName) &&
+                        lastnameFound.equalsIgnoreCase(lastName)) {
                     return true;
                 }
             }
             return false;
         } catch (TimeoutException e) {
             return false;
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }
