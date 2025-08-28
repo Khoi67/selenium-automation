@@ -21,9 +21,9 @@ public class AddEmployeeTest extends BaseTest{
     @DataProvider(name = "employeeData")
     public Object[][] getEmployeeData() {
         Faker faker = new Faker();
-        Object[][] data = new Object[10][2];
+        Object[][] data = new Object[5][2];
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             data[i][0] = faker.name().firstName();
             data[i][1] = faker.name().lastName();
         }

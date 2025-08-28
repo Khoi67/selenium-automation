@@ -36,7 +36,7 @@ public class Screenshot {
             // Trả về đường dẫn tương đối tính từ ExtentReport.html
             return "screenshots/" + destFile.getName();
         } catch (IOException e) {
-            System.out.println("Loi luu anh");
+            System.out.println("Lỗi lưu ảnh");
             return null;
         }
     }
