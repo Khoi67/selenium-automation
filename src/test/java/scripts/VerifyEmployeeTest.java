@@ -5,6 +5,7 @@ import listerners.ExtentReportListerner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
@@ -24,6 +25,12 @@ public class VerifyEmployeeTest extends BaseTest{
     @DataProvider(name = "employeeFileData")
     public static Object[][] getEmployeesFromFile() {
         List<String[]> employees = loadEmployees();
+
+        if (employees.isEmpty()) {
+            logger.warn("⚠️  Không có dữ liệu nhân viên trong file employees.txt → SKIP suite VerifyEmployee.");
+            throw new SkipException("File employee trống, bỏ qua VerifyEmployeeTest");
+        }
+
         Object[][] data = new Object[employees.size()][2];
         for (int i = 0; i < employees.size(); i++) {
             data[i][0] = employees.get(i)[0]; // firstName
@@ -34,6 +41,8 @@ public class VerifyEmployeeTest extends BaseTest{
     @Test(dataProvider = "employeeFileData")
     public void verifyEmployeesInList(String firstName, String lastName) {
         try {
+            logger.info("🔍 Verify nhân viên khi search: {} {}", firstName, lastName);
+
             LoginPage loginPage = new LoginPage(driver);
             loginPage.loginSubmit(ConfigReader.get("username"), ConfigReader.get("password"));
 
@@ -41,8 +50,8 @@ public class VerifyEmployeeTest extends BaseTest{
             dashboardPage.goToPimPage();
 
             EmployeeListPage employeeListPage = new EmployeeListPage(driver);
-
             boolean exists = employeeListPage.isEmployeeInList(firstName, lastName);
+
             Assert.assertTrue(exists, "Không tìm thấy nhân viên: " + firstName + " " + lastName);
 
             logger.info("Tìm kiếm thành công: {} {}", firstName, lastName);

@@ -41,6 +41,6 @@ public class AddEmployeePage extends BasePage {
         }
     }
     public boolean checkingAdd() {
-        return isDisplayed(personalDetailsHeader, 10);
+        return isDisplayed(personalDetailsHeader, 5);
     }
 }
