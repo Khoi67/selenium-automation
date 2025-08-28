@@ -1,49 +1,75 @@
 package utils;
 
-import java.io.*;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TestData {
-    private static final String FILE_PATH = "lists/employees.txt";
+/**
+ * Lưu – đọc danh sách nhân viên đã tạo trong quá trình chạy test.
+ * 1 record = firstName,lastName
+ */
+public final class TestData {
 
-    // 🔹 Xóa hoặc reset file trước khi chạy test suite
-    public static void clearEmployeesFile() {
+    private static final Path FILE_PATH = Paths.get("lists", "employees.txt");
+
+    /* ─────────────────────  INIT / CLEAR  ───────────────────── */
+
+    /** Tạo mới (hoặc xoá nội dung) file employees.txt */
+    public static void resetEmployeesFile() {
         try {
-            File file = new File(FILE_PATH);
-            if (file.exists()) {
-                new FileWriter(file, false).close(); // ghi rỗng
-                System.out.println("✅ Đã reset file employees.txt");
-            } else {
-                file.getParentFile().mkdirs(); // tạo folder nếu chưa có
-                file.createNewFile();          // tạo file mới
-                System.out.println("✅ Đã tạo file employees.txt mới");
+            // Tạo thư mục gốc nếu chưa có
+            if (Files.notExists(FILE_PATH.getParent())) {
+                Files.createDirectories(FILE_PATH.getParent());
             }
+            // Ghi rỗng để reset
+            Files.write(FILE_PATH, new byte[0], StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+            System.out.println("✅ TestData – File employees.txt đã được reset.");
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("❌ Không thể reset file employees.txt: " + e.getMessage());
         }
     }
 
-    // 🔹 Lưu nhân viên mới vào file
-    public static void saveEmployee(String firstName, String lastName) {
-        try (FileWriter fw = new FileWriter(FILE_PATH, true)) {
-            fw.write(firstName + "," + lastName + "\n");
+    /* ─────────────────────  WRITE  ───────────────────── */
+
+    /** Ghi thêm một nhân viên mới */
+    public static synchronized void saveEmployee(String firstName, String lastName) {
+        try {
+            String line = firstName + "," + lastName + System.lineSeparator();
+            Files.write(FILE_PATH, line.getBytes(StandardCharsets.UTF_8),
+                    StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("❌ Không thể ghi nhân viên vào file: " + e.getMessage());
         }
     }
 
+    /* ─────────────────────  READ  ───────────────────── */
+
+    /** Trả về danh sách nhân viên dạng List<String[]>  */
     public static List<String[]> loadEmployees() {
         List<String[]> employees = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(FILE_PATH))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                employees.add(parts);
+        if (Files.notExists(FILE_PATH)) return employees;   // Chưa có file ⇒ trả danh sách rỗng
+
+        try {
+            List<String> lines = Files.readAllLines(FILE_PATH, StandardCharsets.UTF_8);
+            for (String line : lines) {
+                if (line.trim().isEmpty()) continue;        // bỏ dòng trống
+                employees.add(line.split(",", 2));          // [firstName, lastName]
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("❌ Không thể đọc file employees.txt: " + e.getMessage());
         }
         return employees;
     }
+
+    /* ─────────────────────  Utility  ───────────────────── */
+
+    /** Trả về tổng số nhân viên đã lưu */
+    public static int size() {
+        return loadEmployees().size();
+    }
+
+    // Ngăn không cho khởi tạo đối tượng
+    private TestData() {}
 }

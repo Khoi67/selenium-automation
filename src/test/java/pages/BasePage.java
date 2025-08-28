@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -35,13 +36,16 @@ public class BasePage {
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    protected boolean isDisplayed(By locator) {
+    protected boolean isDisplayed(By locator, int seconds) {
         try {
-            return driver.findElement(locator).isDisplayed();
-        } catch (Exception e) {
+            new WebDriverWait(driver, Duration.ofSeconds(seconds))
+                    .until(ExpectedConditions.visibilityOfElementLocated(locator));
+            return true;
+        } catch (TimeoutException e) {
             return false;
         }
     }
+
     protected void waitForVisibility(By locator) {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }

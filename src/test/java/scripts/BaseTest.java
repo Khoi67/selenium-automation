@@ -19,7 +19,7 @@ public class BaseTest {
     //Reset file employees.txt trước khi chạy suite
     @BeforeSuite
     public void clearDataFile() {
-        TestData.clearEmployeesFile();
+        TestData.resetEmployeesFile();
     }
 
     @BeforeMethod

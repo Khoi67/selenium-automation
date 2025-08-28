@@ -19,7 +19,4 @@ public class LoginPage extends BasePage{
         click(loginButton);
     }
 
-    public boolean isErrorVisible() {
-        return isDisplayed(By.xpath("//p[contains(@class,'alert') or contains(text(), 'Invalid')]"));
-    }
 }

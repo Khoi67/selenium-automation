@@ -1,12 +1,6 @@
 package pages;
 
-import com.google.common.io.BaseEncoding;
-import listerners.ExtentReportListerner;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
 
 public class AddEmployeePage extends BasePage {
 
@@ -47,6 +41,6 @@ public class AddEmployeePage extends BasePage {
         }
     }
     public boolean checkingAdd() {
-        return isDisplayed(personalDetailsHeader);
+        return isDisplayed(personalDetailsHeader, 10);
     }
 }
