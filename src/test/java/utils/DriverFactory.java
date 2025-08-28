@@ -70,7 +70,7 @@ public class DriverFactory {
 
     private static WebDriver prepare(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
-        driver.manage().window().maximize();
+        driver.manage().window().setSize(new Dimension(1920, 1080));
         return driver;
     }
 

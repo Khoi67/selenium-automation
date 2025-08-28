@@ -4,21 +4,18 @@
     <listeners>
         <listener class-name="listerners.ExtentReportListerner"/>
     </listeners>
-    <!-- 1. Seed data -->
     <test name="AddEmployeeTest">
         <classes>
             <class name="scripts.AddEmployeeTest"/>
         </classes>
     </test>
 
-    <!-- 2. Login sanity (tuỳ chọn) -->
     <test name="LoginTest">
         <classes>
             <class name="scripts.LoginTest"/>
         </classes>
     </test>
 
-    <!-- 3. Verify danh sách, chỉ chạy khi file đã có -->
     <test name="VerifyEmployeeTest">
         <classes>
             <class name="scripts.VerifyEmployeeTest"/>

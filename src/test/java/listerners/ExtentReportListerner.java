@@ -55,7 +55,6 @@ public class ExtentReportListerner implements ITestListener {
         extent.flush();                // ghi file *.html của suite
     }
 
-
     public static ExtentTest getTest() {
         return test.get();
     }
