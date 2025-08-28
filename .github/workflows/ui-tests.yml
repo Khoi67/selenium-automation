@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write            # cho phép bot push gh-pages
+  contents: write
 
 jobs:
   test:
@@ -31,20 +31,3 @@ jobs:
       # 4. Chạy test (headless)
       - name: Run tests
         run: mvn -B clean test -Dheadless=true
-
-      # 5. Debug: liệt kê thư mục báo cáo
-      - name: List reports
-        run: |
-          echo "🔍 reports content"
-          find reports -maxdepth 2 -type f || echo "reports/ not found!"
-
-      # 6. Deploy nguyên thư mục reports/ lên gh-pages
-      - name: Publish to GitHub Pages
-        if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports        # phải chứa index.html
-          publish_branch: gh-pages
-          user_name: github-actions
-          user_email: github-actions@github.com
