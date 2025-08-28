@@ -1,18 +1,15 @@
 package scripts;
 
 import config.ConfigReader;
-import listerners.ExtentReportListerner;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.SkipException;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.DashboardPage;
 import pages.EmployeeListPage;
 import pages.LoginPage;
-import utils.TestData;
 
 import java.util.List;
 
@@ -25,11 +22,6 @@ public class VerifyEmployeeTest extends BaseTest{
     @DataProvider(name = "employeeFileData")
     public static Object[][] getEmployeesFromFile() {
         List<String[]> employees = loadEmployees();
-
-        if (employees.isEmpty()) {
-            logger.warn("⚠️  Không có dữ liệu nhân viên trong file employees.txt → SKIP suite VerifyEmployee.");
-            throw new SkipException("File employee trống, bỏ qua VerifyEmployeeTest");
-        }
 
         Object[][] data = new Object[employees.size()][2];
         for (int i = 0; i < employees.size(); i++) {
