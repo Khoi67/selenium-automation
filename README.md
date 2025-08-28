@@ -1,7 +1,8 @@
-# Selenium-Automation ‑ OrangeHRM
+# Automation Project
 ![CI](https://github.com/Khoi67/selenium-automation/actions/workflows/ui-tests.yml/badge.svg)
 
-Framework tự động hoá giao diện viết bằng **Java 21 + Selenium 4 + TestNG**.  
+**Java 21 + Selenium 4 + TestNG**
+Trang test ![Orange HRM](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login)
 
 ---
 
