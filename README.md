@@ -1,47 +1,46 @@
 # Selenium-Automation ‑ OrangeHRM
-![UI Tests](https://github.com/<USER>/<REPO>/actions/workflows/ui-tests.yml/badge.svg)
+![CI](https://github.com/Khoi67/selenium-automation/actions/workflows/ui-tests.yml/badge.svg)
 
-Framework tự động hoá giao diện (UI‐Automation) viết bằng **Java 21 + Selenium 4 + TestNG**  
-• Áp dụng Page-Object-Model  
-• Data-Driven (Excel + Faker)  
-• Báo cáo **ExtentReport** (+ tuỳ chọn Allure)  
-• CI/CD GitHub Actions  
-• Chụp screenshot & ghi log4j2
+Framework tự động hoá giao diện viết bằng **Java 21 + Selenium 4 + TestNG**.  
+Áp dụng Page Object Model, Data-Driven (Excel + Faker), báo cáo **ExtentReport**, log Log4j2 và CI bằng GitHub Actions.
 
 ---
 
 ## ✨ Tính năng chính
-| Nhóm | Tính năng |
-|------|-----------|
-| Core | Selenium WebDriver, TestNG Runner, Page Object, BasePage (wait/click/type) |
-| Data | Apache POI đọc Excel (`loginData.xlsx`) + JavaFaker sinh dữ liệu động |
-| Báo cáo | ExtentReport HTML + screenshot, Log4j2 console/file <br>*(tuỳ chọn add Allure)* |
-| Utilities | DriverFactory (Chrome/Firefox/Edge, headless), Screenshot, ExcelReader, TestData |
-| CI | GitHub Actions chạy test trên Ubuntu-latest, badge trạng thái ngay trên README |
+| Nhóm | Mô tả |
+|------|-------|
+| Selenium WebDriver 4 | Hỗ trợ Chrome / Firefox / Edge (WebDriverManager) |
+| TestNG + DataProvider | Login data từ Excel, Create Employee data từ Faker |
+| Báo cáo | Extent Report 5 (HTML), screenshot khi lỗi |
+| Logging | Log4j2 console + file |
+| CI | GitHub Actions (Ubuntu-latest) build & test, badge trạng thái |
 
 ---
 
-## 🛠 Chuẩn bị
+## 🛠 Cài đặt
 
-| Phần mềm | Phiên bản gợi ý |
-|----------|-----------------|
-| JDK      | 17 + (project dùng 21) |
-| Maven    | 3.9 + |
-| Git      | latest |
-| Chrome / Firefox / Edge | Tương ứng driver quản lý bởi **WebDriverManager** |
+1. JDK 17+ (dự án dùng 21)
+2. Maven 3.9+
+3. Git
+4. Trình duyệt (Chrome / Firefox / Edge – bản mới nhất)
 
 ---
 
-## 🚀 Cách chạy cục bộ
+## 🚀 Chạy project
+
+### 1. Từ **IntelliJ IDEA**
+
+1. `File ➜ Open` → chọn thư mục project (có `pom.xml`).
+2. IntelliJ tự tải Maven dependencies.
+3. Mở file `testng.xml`, bấm **Run** (biểu tượng ▶) ‑ hoặc:  
+   • Mở class test (ví dụ `AddEmployeeTest`) → **Run …**.
+4. Xem báo cáo: `reports/ExtentReport.html`.
+
+### 2. Từ command line
 
 ```bash
-# clone repo
 git clone https://github.com/<USER>/<REPO>.git
 cd selenium-automation
-
-# chạy toàn bộ TestNG suite
-mvn clean test
-
-# tuỳ chọn:
-mvn test -Dbrowser=firefox          # đổi trình duyệt
-mvn test -Dheadless=true            # chế độ headless (CI)
+mvn clean test              # chạy tất cả suite
+mvn test -Dbrowser=firefox  # đổi trình duyệt
+mvn test -Dheadless=true    # chế độ headless
