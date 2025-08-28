@@ -1,10 +1,8 @@
 name: UI Tests
-on:
-  push:
-    branches: [ main ]
+on: [push, pull_request]
 
-permissions:             #  ⬅️  thêm block này
-  contents: write         #  cho phép ghi code (push) bằng GITHUB_TOKEN
+permissions:
+  contents: write
 
 jobs:
   test:
@@ -15,11 +13,20 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+
       - run: mvn -B clean test -Dheadless=true
 
-      - name: Deploy ExtentReport to Pages
+      - name: List report
+        run: ls -R reports || true
+
+      - name: Prepare report for Pages
+        run: |
+          if [ -f reports/ExtentReport.html ]; then
+            cp reports/ExtentReport.html reports/index.html
+          fi
+
+      - uses: peaceiris/actions-gh-pages@v3
         if: github.ref == 'refs/heads/main'
-        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./reports
