@@ -9,15 +9,15 @@ import java.io.File;
 public class ExtentManager {
     // Tạo biến static ExtentReports để dùng toàn cục
     private static ExtentReports extent;
-    static {
+    // Hàm khởi tạo ExtentReports instance
+    public static ExtentReports createInstance(String reportFileName) {
+
+        // Tạo thư mục reports nếu chưa có
         File reportsDir = new File("reports");
         if (!reportsDir.exists()) {
             reportsDir.mkdirs();
-            System.out.println("✅ [ExtentManager] created /reports directory");
+            System.out.println("✅ [ExtentManager] created /reports");
         }
-    }
-    // Hàm khởi tạo ExtentReports instance
-    public static ExtentReports createInstance(String reportFileName) {
 
         String reportPath = "./reports/" + reportFileName;
 

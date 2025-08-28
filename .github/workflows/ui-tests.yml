@@ -1,24 +1,50 @@
 name: UI Tests
-on: [push, pull_request]
 
-permissions: { contents: write }
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: write            # cho phép bot push gh-pages
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      # 1. Lấy source
       - uses: actions/checkout@v3
+
+      # 2. JDK
       - uses: actions/setup-java@v3
-        with: {distribution: temurin, java-version: 21}
+        with:
+          distribution: temurin
+          java-version: 21
 
-      - run: mvn -B clean test -Dheadless=true
+      # 3. Cache Maven
+      - uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
 
-      - name: List reports dir
-        run: find reports -maxdepth 2 -type f || echo "No reports"
+      # 4. Chạy test (headless)
+      - name: Run tests
+        run: mvn -B clean test -Dheadless=true
 
-      - uses: peaceiris/actions-gh-pages@v3
+      # 5. Debug: liệt kê thư mục báo cáo
+      - name: List reports
+        run: |
+          echo "🔍 reports content"
+          find reports -maxdepth 2 -type f || echo "reports/ not found!"
+
+      # 6. Deploy nguyên thư mục reports/ lên gh-pages
+      - name: Publish to GitHub Pages
         if: github.ref == 'refs/heads/main'
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./reports
+          publish_dir: ./reports        # phải chứa index.html
           publish_branch: gh-pages
+          user_name: github-actions
+          user_email: github-actions@github.com
