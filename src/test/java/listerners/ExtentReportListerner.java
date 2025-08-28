@@ -11,71 +11,87 @@ import scripts.BaseTest;
 import utils.ExtentManager;
 import utils.Screenshot;
 
-public class ExtentReportListerner implements ITestListener {
-    public static ExtentReports extent;
-    // ThreadLocal để tránh xung đột khi chạy test song song
-    public static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+import java.io.File;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
+public class ExtentReportListerner implements ITestListener {
+    private static ExtentReports extent;
+    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
+
+    // Lưu tên file HTML của suite hiện tại (để gen index)
+    private String reportFileName;
 
     @Override
     public void onStart(ITestContext context) {
-        String testName = context.getName(); // từ TestNG XML <test name="...">
-        String reportFileName = testName + "_Report.html";
+        String testName = context.getName();               // <test name="...">
+        reportFileName = testName + "_Report.html";
         extent = ExtentManager.createInstance(reportFileName);
     }
 
-    // Khi test bắt đầu
     @Override
     public void onTestStart(ITestResult result) {
-        // Tạo một test mới trong báo cáo với tên là tên method
-        ExtentTest extentTest = extent.createTest(result.getMethod().getMethodName());
-        // Gán vào thread hiện tại
-        test.set(extentTest);
+        test.set(extent.createTest(result.getMethod().getMethodName()));
     }
 
-    // Khi test pass
     @Override
     public void onTestSuccess(ITestResult result) {
         test.get().log(Status.PASS, "✅ Test Passed");
     }
 
-    // Khi test fail
     @Override
     public void onTestFailure(ITestResult result) {
-        test.get().log(Status.FAIL, "❌ Test Failed: " + result.getThrowable());
-
-        Object currentClass = result.getInstance();
-        WebDriver driver = ((BaseTest) currentClass).driver;
-
-        String methodName = result.getMethod().getMethodName();
-
-        if (driver != null) {
-            // ✅ Nhận đường dẫn ảnh sau khi chụp
-            String screenshotPath = Screenshot.captureScreenshot(driver, methodName);
-            if (screenshotPath != null) {
-                try {
-                    test.get().addScreenCaptureFromPath(screenshotPath);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
+        test.get().log(Status.FAIL, result.getThrowable());
+        try {
+            WebDriver driver = ((BaseTest) result.getInstance()).driver;
+            String path = Screenshot.captureScreenshot(driver, result.getMethod().getMethodName());
+            if (path != null) test.get().addScreenCaptureFromPath(path);
+        } catch (Exception ignored) {}
     }
 
-    // Khi test bị bỏ qua (skip)
     @Override
     public void onTestSkipped(ITestResult result) {
         test.get().log(Status.SKIP, "⚠️ Test Skipped");
     }
 
-    // Khi toàn bộ test của một suite/class kết thúc
     @Override
     public void onFinish(ITestContext context) {
-        // Ghi toàn bộ dữ liệu vào file báo cáo
-        extent.flush();
+        extent.flush();                // ghi file *.html của suite
+
+        try {
+            generateIndexFile();       // tạo/cập nhật index.html
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    // Trả về test hiện tại, dùng nếu muốn log ở nơi khác
+    /* ========= Tạo index.html liệt kê toàn bộ báo cáo ========= */
+    private void generateIndexFile() throws Exception {
+        File reportsDir = new File("reports");
+        if (!reportsDir.exists()) return;
+
+        File[] htmlFiles = reportsDir.listFiles(f -> f.isFile() && f.getName().endsWith(".html"));
+        if (htmlFiles == null || htmlFiles.length == 0) return;
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<html><head><meta charset='UTF-8'><title>Automation Reports</title>")
+                .append("<style>body{font-family:Arial} ul{line-height:1.8}</style></head><body>")
+                .append("<h2>Automation Test Reports</h2><ul>");
+
+        for (File f : htmlFiles) {
+            String name = f.getName();
+            if ("index.html".equals(name)) continue;    // tránh tự liệt kê chính nó
+            sb.append("<li><a href=\"").append(name).append("\">").append(name).append("</a></li>");
+        }
+
+        sb.append("</ul><p>Generated automatically.</p></body></html>");
+
+        Path indexPath = new File(reportsDir, "index.html").toPath();
+        Files.write(indexPath, sb.toString().getBytes(StandardCharsets.UTF_8));
+        System.out.println("✅ Generated reports/index.html");
+    }
+
     public static ExtentTest getTest() {
         return test.get();
     }

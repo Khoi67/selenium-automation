@@ -10,8 +10,11 @@ public class ExtentManager {
 
     // Hàm khởi tạo ExtentReports instance
     public static ExtentReports createInstance(String reportFileName) {
-        // Đường dẫn file HTML sẽ được tạo ra
-//        String reportPath = "./reports/ExtentReport.html";
+        // 1) Bảo đảm thư mục reports tồn tại
+        java.io.File reportsDir = new java.io.File("reports");
+        if (!reportsDir.exists()) reportsDir.mkdirs();   // <-- thêm dòng này
+
+        // 2) Đường dẫn file report
         String reportPath = "./reports/" + reportFileName;
 
         // Tạo đối tượng ExtentSparkReporter, dùng để xuất ra file HTML
