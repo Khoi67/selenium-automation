@@ -5,12 +5,7 @@
 > <img src="https://img.shields.io/badge/Selenium-4-brightgreen?logo=selenium" height="18"/> &nbsp;|&nbsp;
 > <img src="https://img.shields.io/badge/TestNG-7.x-orange" height="18"/>
 
-**Trang demo:**  
-[https://opensource-demo.orangehrmlive.com/web/index.php/auth/login](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login)
-
-<p align="center">
-  <img src="docs/orangehrm-login.png" width="600" alt="OrangeHRM login screen">
-</p>
+**Trang demo:** [ORANGE HRM](https://opensource-demo.orangehrmlive.com/web/index.php/auth/login)
 
 ---
 
