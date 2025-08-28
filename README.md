@@ -19,9 +19,8 @@ Framework tự động hoá giao diện viết bằng **Java 21 + Selenium 4 + T
 ## 🛠 Cài đặt
 
 1. JDK 17+ (dự án dùng 21)
-2. Maven 3.9+
+2. Intellij
 3. Git
-4. Trình duyệt (Chrome / Firefox / Edge – bản mới nhất)
 
 ---
 
@@ -31,7 +30,7 @@ Framework tự động hoá giao diện viết bằng **Java 21 + Selenium 4 + T
 
 1. `File ➜ Open` → chọn thư mục project (có `pom.xml`).
 2. IntelliJ tự tải Maven dependencies.
-3. Mở file `testng.xml`, bấm **Run** (biểu tượng ▶) ‑ hoặc:  
+3. Mở file `testNG.xml`, bấm **Run** (biểu tượng ▶) ‑ hoặc:  
    • Mở class test (ví dụ `AddEmployeeTest`) → **Run …**.
 4. Xem báo cáo: `reports/<Name>_Report.html`.
 
