@@ -13,6 +13,7 @@ target/
 *.ipr
 
 logs/
+reports/
 lists/
 
 ### Eclipse ###
