@@ -1,51 +1,62 @@
 package utils;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ExcelReader {
-    public static String getCellData(String filePath, String sheetName, int rowIndex, int colIndex) {
-        try (FileInputStream fis = new FileInputStream(new File(filePath))) {
-            Workbook workbook;
 
-            if (filePath.endsWith(".xlsx")) {
-                workbook = new XSSFWorkbook(fis);
-            } else if (filePath.endsWith(".xls")) {
-                workbook = new HSSFWorkbook(fis);
-            } else {
-                throw new IllegalArgumentException("Unsupported file format: " + filePath);
-            }
+    public static Object[][] getData(String filePath, String sheetName) {
+        List<Object[]> records = new ArrayList<>();
+
+        try (FileInputStream fis = new FileInputStream(filePath);
+             Workbook workbook = WorkbookFactory.create(fis)) {
 
             Sheet sheet = workbook.getSheet(sheetName);
-            if (sheet == null) {
-                throw new RuntimeException("Sheet '" + sheetName + "' not found.");
+            int rowCount = sheet.getPhysicalNumberOfRows(); // total rows (including header)
+            int colCount = sheet.getRow(0).getPhysicalNumberOfCells(); // based on header
+
+            for (int i = 1; i < rowCount; i++) { // bỏ qua dòng tiêu đề
+                Row row = sheet.getRow(i);
+                if (row == null) continue; // skip null row
+
+                Object[] rowData = new Object[colCount];
+                boolean isRowEmpty = true;
+
+                for (int j = 0; j < colCount; j++) {
+                    Cell cell = row.getCell(j);
+                    if (cell == null) {
+                        rowData[j] = "";
+                    } else {
+                        cell.setCellType(CellType.STRING);
+                        String value = cell.getStringCellValue().trim();
+                        rowData[j] = value;
+
+                        if (!value.isEmpty()) {
+                            isRowEmpty = false;
+                        }
+                    }
+                }
+
+                if (!isRowEmpty) {
+                    records.add(rowData); // chỉ thêm dòng không trống
+                }
             }
 
-            Row row = sheet.getRow(rowIndex);
-            if (row == null) return "";
+            // Chuyển List sang Object[][]
+            Object[][] finalData = new Object[records.size()][colCount];
+            for (int i = 0; i < records.size(); i++) {
+                finalData[i] = records.get(i);
+            }
 
-            Cell cell = row.getCell(colIndex);
-            if (cell == null) return "";
-
-            return switch (cell.getCellType()) {
-                case STRING -> cell.getStringCellValue();
-                case NUMERIC -> String.valueOf(cell.getNumericCellValue());
-                case BOOLEAN -> String.valueOf(cell.getBooleanCellValue());
-                case FORMULA -> cell.getCellFormula();
-                default -> "";
-            };
+            return finalData;
 
         } catch (IOException e) {
-            throw new RuntimeException("Error reading Excel file: " + e.getMessage(), e);
+            e.printStackTrace();
+            return new Object[0][0];
         }
     }
-
 }

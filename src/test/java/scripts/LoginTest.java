@@ -17,24 +17,7 @@ public class LoginTest extends BaseTest{
         String filePath = "src/test/resources/loginData.xlsx";
         String sheetName = "Sheet1";
 
-        //tạo biến số dòng dữ liệu (không bao gồm dòng tiêu đề)
-        int rowCount = 4;
-
-        //tạo mảng 2 chiều để lưu dữ liệu
-        Object[][] data = new Object[rowCount][3];
-
-        for(int i = 0; i < rowCount; i++){
-            //lấy dữ liệu cho username
-            data[i][0] = ExcelReader.getCellData(filePath, sheetName, i + 1, 0);
-
-            //lấy dữ liệu cho password
-            data[i][1] = ExcelReader.getCellData(filePath, sheetName, i + 1, 1);
-
-            //expectedResult
-            data[i][2] = ExcelReader.getCellData(filePath, sheetName, i + 1, 2);
-        }
-        //trả dữ liệu ra ngoài
-        return data;
+        return ExcelReader.getData(filePath, sheetName);
     }
 
     @Test(dataProvider = "loginData")
